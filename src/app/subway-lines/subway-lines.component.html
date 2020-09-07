@@ -1,0 +1,23 @@
+<div class="center">
+    <button class="pure-button" (click)="toggleVisible()">Click to display all subway lines</button>
+</div>
+<div class="center">
+    <table class="pure-table pure-table-horizontal pure-table-odd" *ngIf="isVisible">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Line ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor='let line of lines'>
+                <td>{{line.attributes.long_name}}</td>
+                <td>{{line.attributes.direction_destinations[0]}} ({{line.attributes.direction_names[0]}})</td>
+                <td>{{line.attributes.direction_destinations[1]}} ({{line.attributes.direction_names[1]}})</td>
+                <td><strong>{{line.id}}</strong></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,19 @@
+<div class="center">
+    <label class="pure-label">Enter <strong>line ID</strong> to view stops:
+      <input [(ngModel)]="lineId" placeholder="Green-B"/>
+    </label>
+    <button class="pure-button pure-button-primary" (click)="onSubmit()">
+        Submit
+    </button>
+ </div>
+
+<div *ngIf="clicked">
+    <div class="center" *ngFor="let stop of stops">
+        {{stop.attributes.name}}<br /><br />
+    </div>
+</div>
+
+<div class="center error" *ngIf="invalidEntry">
+    That doesn't seem to be a valid line ID :(<br />
+    Line IDs are case sensitive.
+</div>
