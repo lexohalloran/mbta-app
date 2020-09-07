@@ -5,13 +5,15 @@
     <button class="pure-button pure-button-primary" (click)="onSubmit()">
         Submit
     </button>
- </div>
+</div>
 
-<div *ngIf="clicked">
+<div class="center note">Multiple lines can be entered, separated by commas, e.g. "Red, Mattapan"</div>
+
+<!-- <div *ngIf="clicked"> -->
     <div class="center" *ngFor="let stop of stops">
         {{stop.attributes.name}}<br /><br />
     </div>
-</div>
+<!-- </div> -->
 
 <div class="center error" *ngIf="invalidEntry">
     That doesn't seem to be a valid line ID :(<br />

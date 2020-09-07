@@ -5,3 +5,8 @@ button {
     text-align: center;
     color: red;
 }
+.note {
+    font-size: 70%;
+    font-style: italic;
+    color: grey;
+}

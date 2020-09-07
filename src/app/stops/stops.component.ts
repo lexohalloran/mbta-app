@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Datum } from '../object-model/datum';
+import { Datum } from '../object-model';
 import { StopService } from '../stop.service';
 
 @Component({
@@ -10,7 +10,6 @@ import { StopService } from '../stop.service';
 export class StopsComponent implements OnInit {
 
   lineId: string;
-  clicked: boolean = false;
   invalidEntry: boolean = false;
   stops: Datum[];
 
@@ -19,17 +18,27 @@ export class StopsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * Called when 'Submit' button is clicked. Validates that input is 
+   * nonempty and populates stops list.
+   */
   onSubmit(): void {
-    this.clicked = true;
     if (this.lineId) {
       this.invalidEntry = false;
-      this.getStops(this.lineId);
+      // remove whitespace so the user can input things like 'Red, Orange' without error
+      let searchString = this.lineId.replace(/\s/g, "");
+      this.getStops(searchString);
+      this.lineId = '';
     }
-    this.lineId = '';
   }
 
-  getStops(lineId: string): void {
-    this.stopService.getStops(lineId).subscribe(result => {
+  /**
+   * Retrieves the list of stops from the Stop Service and 
+   * saves them to this.stops.
+   * @param searchString String to append to stops url to filter results by line.
+   */
+  getStops(searchString: string): void {
+    this.stopService.getStops(searchString).subscribe(result => {
         this.stops = result.data;
         if (result.data.length < 1) this.invalidEntry = true;
     });

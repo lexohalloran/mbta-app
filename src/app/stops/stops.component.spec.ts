@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StopsComponent } from './stops.component';
-import { Resource } from '../object-model/resource';
+import { Resource } from '../object-model';
 import { of } from 'rxjs';
 import { StopService } from '../stop.service';
 

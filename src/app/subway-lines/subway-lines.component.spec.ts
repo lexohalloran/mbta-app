@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SubwayLinesComponent } from './subway-lines.component';
 import { LineService } from '../line.service';
-import { Resource } from '../object-model/resource';
+import { Resource } from '../object-model';
 import { of } from 'rxjs';
 
 describe('SubwayLinesComponent', () => {

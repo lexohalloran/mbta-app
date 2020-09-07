@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LineService } from '../line.service';
-import { Resource } from '../object-model/resource';
-import { Datum } from '../object-model/datum';
+import { Resource, Datum } from '../object-model';
 
 @Component({
   selector: 'app-subway-lines',
@@ -10,7 +9,8 @@ import { Datum } from '../object-model/datum';
 })
 export class SubwayLinesComponent implements OnInit {
 
-  isVisible: boolean;
+  isVisible: boolean = false;
+  areLinesFetched: boolean = false;
   lines: Datum[];
   strings: string[];
   jsonObject: Resource;
@@ -18,17 +18,24 @@ export class SubwayLinesComponent implements OnInit {
   constructor(private lineService: LineService) { }
 
   ngOnInit(): void {
-    this.isVisible = false;
-    
-    this.lineService.getLines().subscribe(result => {
-      this.lines = result.data.filter(
-        route => route.attributes.type == 0 || route.attributes.type == 1);
-      this.strings = this.lines.map(route => JSON.stringify(route));
-    });
   }
 
-  toggleVisible(): void {
+  /**
+   * Toggles visibility of subway-lines component, and retrieves 
+   * list of subway lines if they have not already been retrieved.
+   */
+  onClick(): void {
     this.isVisible = !this.isVisible;
+
+    if (!this.areLinesFetched) {
+      this.lineService.getLines().subscribe(result => {
+        this.lines = result.data.filter(
+          // Filter for 'light rail' and 'heavy rail' lines (not e.g. buses)
+          route => route.attributes.type == 0 || route.attributes.type == 1);
+          this.strings = this.lines.map(route => JSON.stringify(route));
+          this.areLinesFetched = true;
+      });
+    }
   }
 
 }
